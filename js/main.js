@@ -13,3 +13,39 @@ function imgPromo2(){
 function searchData(description){
     let mySearch = new Object();
 }
+const $form = document.getElementById('inputSearch');
+
+const $table = document.getElementById("resultTable");
+function templateResults(articulo,codigoBarras,nombre,precio){
+  return (
+    `<tr>
+          <th scope="row">${articulo}</th>
+          <td>${codigoBarras}</td>
+          <td>${nombre}</td>
+          <td>$\t${precio}</td>
+    </tr>
+    `)
+}
+const $resultTable = document.getElementById("resultTable");
+function busqueda(art){
+  const $art = art.toUpperCase()
+  for(i in data){
+    const Articulo = data[i].Articulo
+    const CodigoBarras = data[i].CodigoBarras
+    const Nombre = data[i].Nombre
+    const PrecioTotal = parseFloat(data[i].PrecioTotal).toFixed(2)
+    if(data[i].Nombre.match($art)){
+      // console.log(data[i].Articulo,data[i].CodigoBarras,data[i].Nombre,data[i].PrecioTotal);
+      console.log(Articulo,CodigoBarras,Nombre,PrecioTotal);
+      const htmlString = templateResults(Articulo,CodigoBarras,Nombre,PrecioTotal)
+      $resultTable.innerHTML += htmlString;
+    }
+  }
+}
+$form.addEventListener('submit',(event) =>{
+  event.preventDefault();
+  $resultTable.innerHTML = "";
+  const dato = new FormData($form);
+  const datoBusqueda = dato.get('name');
+  busqueda(datoBusqueda);
+})
