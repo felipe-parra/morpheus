@@ -16,13 +16,14 @@ function searchData(description){
 const $form = document.getElementById('inputSearch');
 
 const $table = document.getElementById("resultTable");
-function templateResults(articulo,codigoBarras,nombre,precio){
+function templateResults(articulo,codigoBarras,nombre,precio,fecha){
   return (
     `<tr>
           <th scope="row">${articulo}</th>
           <td>${codigoBarras}</td>
           <td>${nombre}</td>
           <td>$\t${precio}</td>
+          <td>${fecha}</td>
     </tr>
     `)
 }
@@ -34,10 +35,9 @@ function busqueda(art){
     const CodigoBarras = data[i].CodigoBarras
     const Nombre = data[i].Nombre
     const PrecioTotal = parseFloat(data[i].PrecioTotal).toFixed(2)
+    const fecha = data[i].FechaModificacion
     if(data[i].Nombre.match($art)){
-      // console.log(data[i].Articulo,data[i].CodigoBarras,data[i].Nombre,data[i].PrecioTotal);
-      console.log(Articulo,CodigoBarras,Nombre,PrecioTotal);
-      const htmlString = templateResults(Articulo,CodigoBarras,Nombre,PrecioTotal)
+      const htmlString = templateResults(Articulo,CodigoBarras,Nombre,PrecioTotal,fecha)
       $resultTable.innerHTML += htmlString;
     }
   }
